@@ -1,0 +1,64 @@
+1.##Studenti nati nel 1990
+SELECT *
+FROM `students` 
+WHERE YEAR(`date_of_birth`) = 1990 ;
+
+2.##Corsi che valgono più di 10 crediti
+SELECT *
+FROM `courses`
+WHERE `cfu` > 10 ;
+
+3.##Studenti con più di 30 anni
+SELECT *
+FROM `students`
+WHERE `date_of_birth` < DATE_SUB(CURDATE(), INTERVAL 30 YEAR);
+
+4.##Corsi del I semestre del primo anno
+SELECT *
+FROM `courses` 
+WHERE `period` = "I semestre"
+AND `year` = 1 ;
+
+5.##Esami del 20/06/2020 dopo le 14
+SELECT *
+FROM `exams` 
+WHERE `date` = "2020-06-20" 
+AND `hour` > "14:00:00" ;
+
+6.##Corsi laurea magistrale
+SELECT *
+FROM `degrees`
+WHERE `level` = "magistrale" ;
+
+7.##Numero di dipartimenti
+SELECT COUNT(*) AS `number_of_departments`
+FROM `departments` ;
+
+8.##Insegnanti che non hanno il numero di telefono
+SELECT *
+FROM `teachers`
+WHERE `phone` IS NULL ;
+
+
+BONUS
+1.##Numero iscritti per ogni anno
+SELECT YEAR(`enrolment_date`), COUNT(*)
+FROM `students`
+GROUP BY YEAR(`enrolment_date`) 
+ORDER BY YEAR(`enrolment_date`) ;
+
+2.##Insegnanti con ufficio nello stesso edificio
+SELECT COUNT(*), `office_address`
+FROM `teachers` 
+GROUP BY `office_address` 
+ORDER BY `office_address` ;
+
+3.##Media voti per ogni appello d'esame
+SELECT `exam_id`, AVG(vote)
+FROM `exam_student`
+GROUP BY `exam_id` ;
+
+4.##Numero corsi di laurea per ogni dipartimento
+SELECT `department_id`, COUNT(*)
+FROM `degrees`
+GROUP BY `department_id` ;
